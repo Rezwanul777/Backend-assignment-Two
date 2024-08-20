@@ -1,5 +1,9 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
+
+
 
 import { TLoginUser } from "./auth.interface";
 import jwt from "jsonwebtoken";
@@ -63,13 +67,19 @@ const login = async (payload: TLoginUser) => {
     }
   );
 
+  // Remove password from the user object before returning
+  const userObj = user.toObject() as TUser & { password: string };
+  const { password, ...userDetails } = userObj;
+
   return {
     accessToken,
     refreshToken,
+    userDetails
   };
 };
 
 export const AuthServices = {
   register,
   login,
+ 
 };
