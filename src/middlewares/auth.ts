@@ -35,7 +35,12 @@ export const auth = (...requiredRoles: (keyof typeof USER_Role)[]) => {
       if (!requiredRoles.includes(role)) {
         throw new AppError(401, "You are not authorized to access this route");
       }
+
+       // Attach the user object to the req object
+    req.user = user;
   
       next();
     });
   };
+
+  
